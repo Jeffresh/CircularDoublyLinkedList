@@ -53,6 +53,34 @@ private:
 
 };
 
+template<typename T>
+const  typename  CD_Linked_List<T>::position CD_Linked_List<T>::NULL_POS{0};
+template<typename T>
+void CD_Linked_List<T>::copy(const CD_Linked_List<T>& l)
+{
+	if(l.L)
+	{
+		L= new node((l.L)->elt);
+		L->back= L->next = L;
+
+		for(node* r = l.L->next; r!=l.L; r = r->next)
+			L->back = L->back->next = new node(r->elt, L->back, L);		
+
+
+
+	}
+
+}
+
+template<typename T>
+inline CD_Linked_List<T>::CD_Linked_List():L{0}{}
+
+
+template<typename T>
+inline CD_Linked_List<T>::CD_Linked_List(const CD_Linked_List<T>& C){ copy(C);}
+
+
+
 
 
 
