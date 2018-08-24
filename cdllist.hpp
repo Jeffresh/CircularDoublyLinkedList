@@ -20,7 +20,8 @@ public:
 	CD_Linked_List(const CD_Linked_List<T>&);
 	CD_Linked_List<T>& operator =(const CD_Linked_List<T>&);
 
-	position ini_pos();
+
+	position ini_pos()const;
 
 	void insert(const T&,position);
 	void del(position);
@@ -73,12 +74,42 @@ void CD_Linked_List<T>::copy(const CD_Linked_List<T>& l)
 }
 
 template<typename T>
-inline CD_Linked_List<T>::CD_Linked_List():L{0}{}
+inline CD_Linked_List<T>::CD_Linked_List():L{NULL_POS}{}
 
 
 template<typename T>
 inline CD_Linked_List<T>::CD_Linked_List(const CD_Linked_List<T>& C){ copy(C);}
 
+
+template<typename t>
+inline CD_Linked_List<T>& CD_Linked_List<T>::operator =(const CD_Linked_List<T>& l)
+{
+
+	if(L!=&l)
+	{
+		this->~Lista();
+
+		copy(l);
+
+	}
+
+
+	return *this;
+
+
+}
+
+template<typename T>
+inline typename CD_Linked_List<T>::position ini_pos()const
+{return L;}
+
+
+template<typename T>
+inline void CD_Linked_List<T>::insert(const T& e, CD_Linked_List<T>::position p)
+{
+
+	p->next=p->next->ant = new node(e,p,p->next);
+}
 
 
 
