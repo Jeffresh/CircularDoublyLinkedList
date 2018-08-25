@@ -111,6 +111,34 @@ inline void CD_Linked_List<T>::insert(const T& e, CD_Linked_List<T>::position p)
 	p->next=p->next->ant = new node(e,p,p->next);
 }
 
+template<typename T>
+inline void CD_Linked_List<T>::del(CD_Linked_List<T>::position p)
+{
+
+	if(p->next==L)
+	{
+		p->next->next =L
+	}
+
+	node* q = p->next;
+
+	p->next =  q->next;
+
+	p->next->back = p
+
+	delete q;
+}
+
+template<typename>
+inline  typename CD_Linked_List<T>::position element(CD_Linked_List<T>::position p)
+{
+
+
+	return p->next->elt;
+
+
+}
+
 
 
 
