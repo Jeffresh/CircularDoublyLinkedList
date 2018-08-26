@@ -1,10 +1,10 @@
 CXX = clang++
-OBJS =  cdllist.hpp
+OBJS =  tests.o
 
 all: main
 
 main: $(OBJS)
-	$(CXX) $(OBJS)  
+	$(CXX) $(OBJS)  -o testcdllist
 
 clean:
 	$(RM) main $(OBJS) core *~

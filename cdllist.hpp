@@ -147,18 +147,28 @@ inline typename CD_Linked_List<T>::position CD_Linked_List<T>::search(const T& e
 
 	assert(L!=NULL_POS);
 
-	node* q = L->next;
+	node* q = L->next; bool found = true;
 
 	if(L->elt != e)
 	{
-		while( q->elt != e && q!=L)
+		found = false;
+		while( found && q!=L)
 		{
-			q=q->next;
+			if( q->elt ==e)
+				found = true;
+			else
+				q=q->next;
 		}
+
+		if(!found)
+			q= NULL_POS;
 
 	}
 
-	return q->elt == e;
+	
+
+
+	return q;
 
 }
 
