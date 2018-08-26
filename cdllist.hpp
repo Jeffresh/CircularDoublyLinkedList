@@ -108,9 +108,12 @@ inline void CD_Linked_List<T>::insert(const T& e, CD_Linked_List<T>::position p)
 {
 
 	if(p !=NULL_POS)
-		L = p->next=p->next->ant = new node(e,p,p->next);
+		p->next=p->next->back = new node(e,p,p->next);
 	else
-		L= new node(e,L,L);
+	{
+		L= new node(e);
+		L->back=L->next=L;
+	}
 }
 
 template<typename T>
@@ -136,10 +139,10 @@ inline void CD_Linked_List<T>::del(CD_Linked_List<T>::position p)
 }
 
 template<typename T>
-inline  T CD_Linked_List<T>::element(CD_Linked_List<T>::position p)const { return p->next->elt;}
+inline  T CD_Linked_List<T>::element(CD_Linked_List<T>::position p)const { assert(L!= NULL_POS);  return p->next->elt;}
 
 template<typename T>
-inline T& CD_Linked_List<T>::element(CD_Linked_List<T>::position p){ return p->next->elt;}
+inline T& CD_Linked_List<T>::element(CD_Linked_List<T>::position p){ assert(L!= NULL_POS); return p->next->elt;}
 
 template<typename T>
 inline typename CD_Linked_List<T>::position CD_Linked_List<T>::search(const T& e)const
@@ -175,7 +178,6 @@ inline typename CD_Linked_List<T>::position CD_Linked_List<T>::search(const T& e
 template<typename T>
 inline typename CD_Linked_List<T>::position CD_Linked_List<T>::next(typename CD_Linked_List<T>::position p)const
 {
-	assert(L!=p->next);
 
 	return p->next;
 
@@ -185,7 +187,6 @@ inline typename CD_Linked_List<T>::position CD_Linked_List<T>::next(typename CD_
 template<typename T>
 inline typename CD_Linked_List<T>::position CD_Linked_List<T>::back(typename CD_Linked_List<T>::position p)const
 {
-	assert(L!= p->next);
 
 	return p->back;
 }
