@@ -81,7 +81,7 @@ template<typename T>
 inline CD_Linked_List<T>::CD_Linked_List(const CD_Linked_List<T>& C){ copy(C);}
 
 
-template<typename t>
+template<typename T>
 inline CD_Linked_List<T>& CD_Linked_List<T>::operator =(const CD_Linked_List<T>& l)
 {
 
@@ -100,43 +100,84 @@ inline CD_Linked_List<T>& CD_Linked_List<T>::operator =(const CD_Linked_List<T>&
 }
 
 template<typename T>
-inline typename CD_Linked_List<T>::position ini_pos()const
-{return L;}
+inline typename CD_Linked_List<T>::position CD_Linked_List<T>::ini_pos()const {return L;}
 
 
 template<typename T>
 inline void CD_Linked_List<T>::insert(const T& e, CD_Linked_List<T>::position p)
 {
 
-	p->next=p->next->ant = new node(e,p,p->next);
+	if(p !=NULL_POS)
+		L = p->next=p->next->ant = new node(e,p,p->next);
+	else
+		L= new node(e,L,L);
 }
 
 template<typename T>
 inline void CD_Linked_List<T>::del(CD_Linked_List<T>::position p)
 {
 
-	if(p->next==L)
-	{
-		p->next->next =L
-	}
+
+	assert(L!= NULL_POS);
 
 	node* q = p->next;
 
-	p->next =  q->next;
 
-	p->next->back = p
+	if(L!=p->next)
+	{
+		p->next =  q->next;
+
+		L = p->next->back = p;
+	}
+	else
+		L = NULL_POS;
 
 	delete q;
 }
 
-template<typename>
-inline  typename CD_Linked_List<T>::position element(CD_Linked_List<T>::position p)
+template<typename T>
+inline  T CD_Linked_List<T>::element(CD_Linked_List<T>::position p)const { return p->next->elt;}
+
+template<typename T>
+inline T& CD_Linked_List<T>::element(CD_Linked_List<T>::position p){ return p->next->elt;}
+
+template<typename T>
+inline typename CD_Linked_List<T>::position CD_Linked_List<T>::search(const T& e)const
 {
 
+	assert(L!=NULL_POS);
 
-	return p->next->elt;
+	node* q = L->next;
+
+	if(L->elt != e)
+	{
+		while( q->elt != e && q!=L)
+		{
+			q=q->next;
+		}
+
+	}
+
+	return q->elt == e;
+
+}
+
+template<typename T>
+inline typename CD_Linked_List<T>::position CD_Linked_List<T>::next(typename CD_Linked_List<T>::position p)const
+{
+	assert(L!=p->next);
+
+	return p->next;
 
 
+}
+
+template<typename T>
+inline typename CD_Linked_List<T>::position CD_Linked_List<T>::back(typename CD_Linked_List<T>::position p)const
+{
+	assert(L!= p->next);
+
+	return p->back;
 }
 
 
